@@ -1,5 +1,5 @@
 {
-  "name": "wdio-appium-bs-calculator",
+  "name": "wdio-appium-bs",
   "version": "1.0.0",
   "private": true,
   "description": "Mobile Automation on Appium + WebdriverIO + BrowserStack with Allure Report",

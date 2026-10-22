@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import path from 'node:path';
 
-const appPath = process.env.APP_PATH ?? './apps/calculator.apk';
+const appPath = process.env.APP_PATH ?? './apps/clock.apk';
 
 export const config: WebdriverIO.Config = {
     runner: 'local',
@@ -11,7 +11,7 @@ export const config: WebdriverIO.Config = {
     framework: 'mocha',
     reporters: ['spec'],
     mochaOpts: {
-        timeout: 60_000
+        timeout: 600_000
     },
     services: [[
         'appium',

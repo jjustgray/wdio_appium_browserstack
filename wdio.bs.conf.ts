@@ -19,9 +19,9 @@ export const config: WebdriverIO.Config = {
     // Ссылка bs://... после загрузки APK в BrowserStack или предустановленный пакунок
     'appium:app': process.env.BROWSERSTACK_APP_URL || 'bs://<hashed_app_id>',
     'bstack:options': {
-      projectName: 'Android Native Calculator Tests',
+      projectName: 'Android Native Clock Tests',
       buildName: `Build-${process.env.BUILD_NUMBER || 'Local'}`,
-      sessionName: 'Calculator Automation Test',
+      sessionName: 'Clock Automation Test',
       debug: true,
       networkLogs: true
     }
