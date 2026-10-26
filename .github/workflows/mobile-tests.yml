@@ -1,10 +1,6 @@
-name: Mobile Appium Tests on BrowserStack
+name: Mobile Appium Tests
 
 on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
   workflow_dispatch:
 
 permissions:
@@ -12,48 +8,53 @@ permissions:
 
 jobs:
   test:
-    name: Run Appium Tests on BrowserStack
+    name: Run Appium Tests on Android Emulator
     runs-on: ubuntu-latest
+    timeout-minutes: 60
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
 
-      - name: Run Tests on BrowserStack
-        run: npm run test:bs
-        env:
-          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-          BROWSERSTACK_APP_URL: ${{ secrets.BROWSERSTACK_APP_URL }}
+      - name: Run tests on Android 13 emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          target: google_apis
+          arch: x86_64
+          profile: pixel_2
+          disable-animations: true
+          script: npm run test:local
 
-      - name: Upload Allure Results Artifact
+      - name: Upload Allure results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-results
           path: allure-results/
+          if-no-files-found: ignore
           retention-days: 1
 
   publish-report:
-    name: Generate & Publish Allure Report
+    name: Generate and publish Allure report
     needs: test
     if: always()
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -65,16 +66,17 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
 
-      - name: Download Allure Results
+      - name: Download Allure results
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: allure-results
           path: allure-results/
 
-      - name: Keep Allure History
+      - name: Keep Allure history
         uses: actions/checkout@v4
         if: always()
         continue-on-error: true
@@ -82,19 +84,19 @@ jobs:
           ref: gh-pages
           path: gh-pages-dir
 
-      - name: Copy History
+      - name: Copy history
         if: always()
         run: |
           mkdir -p allure-results/history
           cp -R gh-pages-dir/history/* allure-results/history/ || true
 
-      - name: Generate Allure Report
+      - name: Generate Allure report
         if: always()
         run: npm run report:generate
 
-      - name: Deploy Allure Report to GitHub Pages
+      - name: Deploy Allure report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
-        if: always()
+        if: always() && github.event_name != 'pull_request'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report

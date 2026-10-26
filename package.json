@@ -31,5 +31,8 @@
     "typescript": "^5.7.0",
     "wdio-browserstack-service": "latest",
     "webdriverio": "^9.0.0"
+  },
+  "dependencies": {
+    "@wdio/browserstack-service": "^9.41.0"
   }
 }

@@ -9,7 +9,14 @@ export const config: WebdriverIO.Config = {
     maxInstances: 1,
     logLevel: 'info',
     framework: 'mocha',
-    reporters: ['spec'],
+    reporters: [
+        'spec',
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: false,
+            disableWebdriverScreenshotsReporting: false
+        }]
+    ],
     mochaOpts: {
         timeout: 600_000
     },

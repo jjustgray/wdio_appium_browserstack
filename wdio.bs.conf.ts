@@ -1,5 +1,4 @@
 import * as dotenv from 'dotenv';
-import path from 'node:path';
 
 dotenv.config();
 
@@ -16,8 +15,13 @@ export const config: WebdriverIO.Config = {
     'appium:deviceName': 'Google Pixel 7 Pro',
     'appium:platformVersion': '13.0',
     'appium:automationName': 'UiAutomator2',
-    // Ссылка bs://... после загрузки APK в BrowserStack или предустановленный пакунок
-    'appium:app': process.env.BROWSERSTACK_APP_URL || 'bs://<hashed_app_id>',
+    
+    'appium:app': 'bs://54583bcebfafcded1d6ea56b47bc31226dba1c8e',
+    'appium:appPackage': 'com.google.android.deskclock',
+    'appium:appActivity': 'com.android.deskclock.DeskClock',
+    'appium:noReset': true,    
+    'appium:autoGrantPermissions': true,
+
     'bstack:options': {
       projectName: 'Android Native Clock Tests',
       buildName: `Build-${process.env.BUILD_NUMBER || 'Local'}`,

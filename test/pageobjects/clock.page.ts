@@ -1,26 +1,30 @@
 import { $ } from '@wdio/globals';
 
 class ClockPage {
-  // Нижняя навигация
   get tabAlarm() { return $('~Alarm'); }
   get tabClock() { return $('~Clock'); }
   get tabTimer() { return $('~Timer'); }
   get tabStopwatch() { return $('~Stopwatch'); }
 
-  // Элементы вкладки «Будильник» (Alarm)
   get btnAddAlarm() { return $('~Add alarm'); }
   get alarmList() { return $('id=com.google.android.deskclock:id/alarm_recycler_view'); }
   get confirmNewAlarm() { return $('id=com.google.android.deskclock:id/material_timepicker_ok_button'); }
   get collapseAlarmView() { return $('~Collapse alarm'); }
+  get expandAlarmView() { return $('~Expand alarm'); }
   get btnAMtime() { return $('id=com.google.android.deskclock:id/material_clock_period_am_button'); }
   get btnPMtime() { return $('id=com.google.android.deskclock:id/material_clock_period_pm_button'); }
+  get deleteAlarmBtn() { return $('id=com.google.android.deskclock:id/delete'); }
 
-  // Элементы вкладки «Секундомер» (Stopwatch)
   get btnStartStopwatch() { return $('~Start'); }
   get stopwatchTime() { return $('id=com.google.android.deskclock:id/stopwatch_circle'); }
   get btnResetStopwatch() { return $('~Reset'); }
+  get btnPauseStopwatch() { return $('~Pause'); }
+  get btnLapStopwatch() { return $('~Lap'); }
+  get stopwatchLapList() { return $('id=com.google.android.deskclock:id/laps_list'); }
+  get lapNumber() { return $('android=new UiSelector().resourceId("com.google.android.deskclock:id/lap_number")'); }
+  get lapTime() { return $('android=new UiSelector().resourceId("com.google.android.deskclock:id/lap_time")'); }
+  get lapTotal() { return $('android=new UiSelector().resourceId("com.google.android.deskclock:id/lap_total")'); }
 
-  // Элементы вкладки «Таймер» (Timer)
   get btnDigit5() { return $('id=com.google.android.deskclock:id/timer_setup_digit_5'); }
   get btnStartTimer() { return $('~Start'); }
   get timerText() { return $('id=com.google.android.deskclock:id/timer_label'); }
@@ -28,8 +32,6 @@ class ClockPage {
   async scrollToOption(optionText: string): Promise<void> {
     const selector = `android=new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("${optionText}"))`;
     const element = $(selector);
-    await element.waitForDisplayed();
-    await element.click();
   }
   
   async openAlarmTab(): Promise<void> {
@@ -56,6 +58,19 @@ class ClockPage {
 
   async findAlarmLabelByTime(hours: number, minutes: number, period: string): Promise<ChainablePromiseElement> {
     return $(`android=new UiSelector().resourceId("com.google.android.deskclock:id/digital_clock").textContains("${hours}:${minutes}")`);
+  }
+
+  async findAlarmCardByTime(hours: number, minutes: number) {
+      const timePattern = `${hours}:${minutes})`;
+
+      const xpath = `
+          //android.support.v7.widget.RecyclerView[@resource-id="com.google.android.deskclock:id/alarm_recycler_view"]
+          /androidx.cardview.widget.CardView
+          [./android.view.ViewGroup[@resource-id="com.google.android.deskclock:id/alarm_card_layout" 
+          and .//android.widget.TextView[contains(@text, "${hours}:${minutes}")]]]
+      `.trim();
+
+      return $(xpath);
   }
 
   async openClockTab(): Promise<void> {
