@@ -9,6 +9,8 @@ export const config: WebdriverIO.Config = {
     maxInstances: 1,
     logLevel: 'info',
     framework: 'mocha',
+    connectionRetryTimeout: 120000,
+    connectionRetryCount: 3,
     reporters: [
         'spec',
         ['allure', {
@@ -35,6 +37,8 @@ export const config: WebdriverIO.Config = {
         'appium:automationName': 'UiAutomator2',
         'appium:deviceName': process.env.ANDROID_DEVICE_NAME ?? 'Android Emulator',
         'appium:platformVersion': '13.0',
+        'appium:newCommandTimeout': 240,
+        'appium:adbExecTimeout': 60000,
         'appium:appPackage': 'com.google.android.deskclock',
         'appium:appActivity': 'com.android.deskclock.DeskClock',
         'appium:autoGrantPermissions': true,

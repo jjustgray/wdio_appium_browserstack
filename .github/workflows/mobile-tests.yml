@@ -33,7 +33,16 @@ jobs:
           arch: x86_64
           profile: pixel_2
           disable-animations: true
-          script: npm run test:local
+          script: |
+            adb wait-for-device
+            
+            echo "Waiting for emulator to fully boot..."
+            while [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" != "1" ]; do
+              sleep 2
+            done
+            sleep 5
+            adb shell input keyevent 82
+            npm run test:local
 
       - name: Upload Allure results
         if: always()
@@ -101,3 +110,11 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
           keep_files: false
+      
+      - name: Add Allure Report Link to Summary
+        if: always() && github.event_name != 'pull_request'
+        run: |
+          REPORT_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+          
+          echo "### 📊 Test Results & Reports" >> $GITHUB_STEP_SUMMARY
+          echo "- [Открыть последний Allure Report]($REPORT_URL)" >> $GITHUB_STEP_SUMMARY
