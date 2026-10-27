@@ -11,6 +11,8 @@ jobs:
     name: Run Appium Tests on Android Emulator
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    env:
+      APP_PATH: app/clock_7_4.apk
 
     steps:
       - name: Checkout code
@@ -33,8 +35,6 @@ jobs:
           arch: x86_64
           profile: pixel_4
           disable-animations: true
-          env: |
-            APP_PATH=app/clock_7_4.apk
           script: |
             echo "Waiting for system services to stabilize..."
             sleep 10
