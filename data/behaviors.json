@@ -1,1 +1,1 @@
-{"uid":"b1a8273437954620fa374b796ffaacdd","name":"behaviors","children":[{"name":"TC-01: Should successfully switch to the Timer tab","uid":"614a7070c3333533","parentUid":"b1a8273437954620fa374b796ffaacdd","status":"unknown","time":{"start":1793107403030},"flaky":false,"newFailed":false,"newPassed":false,"newBroken":false,"retriesCount":0,"retriesStatusChange":false,"parameters":["Android Emulator"],"tags":[]}]}
+{"uid":"b1a8273437954620fa374b796ffaacdd","name":"behaviors","children":[]}
