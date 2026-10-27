@@ -9,7 +9,7 @@ export const config: WebdriverIO.Config = {
     maxInstances: 1,
     logLevel: 'info',
     framework: 'mocha',
-    connectionRetryTimeout: 120000,
+    connectionRetryTimeout: 300000, 
     connectionRetryCount: 3,
     reporters: [
         'spec',
@@ -43,7 +43,7 @@ export const config: WebdriverIO.Config = {
         'appium:uiautomator2ServerLaunchTimeout': 90000,
         'appium:uiautomator2ServerInstallTimeout': 90000,
         'appium:androidInstallTimeout': 90000,
-        
+
         'appium:appPackage': 'com.google.android.deskclock',
         'appium:appActivity': 'com.android.deskclock.DeskClock',
         'appium:autoGrantPermissions': true,
