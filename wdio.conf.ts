@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import path from 'node:path';
 
-const appPath = process.env.APP_PATH ?? './apps/clock.apk';
+const appPath = process.env.APP_PATH ?? './app/clock_7_4.apk';
 
 export const config: WebdriverIO.Config = {
     runner: 'local',
@@ -37,6 +37,7 @@ export const config: WebdriverIO.Config = {
         'appium:automationName': 'UiAutomator2',
         'appium:deviceName': process.env.ANDROID_DEVICE_NAME ?? 'Android Emulator',
         'appium:platformVersion': '10.0',
+        'appium:app': path.resolve(appPath),
         'appium:newCommandTimeout': 240,
         'appium:adbExecTimeout': 60000,
 
