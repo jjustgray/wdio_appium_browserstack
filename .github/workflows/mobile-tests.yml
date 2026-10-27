@@ -32,29 +32,9 @@ jobs:
           target: google_apis
           arch: x86_64
           profile: pixel_4
+          disable-animations: true
           script: |
-            adb kill-server
-            adb start-server
-            
-            echo "Waiting for device to be online..."
-            adb wait-for-device
-            
-            echo "Waiting for sys.boot_completed..."
-            counter=0
-            until [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = "1" ]; do
-              counter=$((counter+1))
-              if [ $counter -ge 30 ]; then
-                echo "Timeout waiting for emulator to boot!"
-                exit 1
-              fi
-              sleep 5
-            done
-            
-            echo "Emulator booted successfully!"
-            
             adb shell input keyevent 82
-            adb shell input keyevent 4
-            
             npm run test:local
 
       - name: Upload Allure results
