@@ -39,6 +39,11 @@ export const config: WebdriverIO.Config = {
         'appium:platformVersion': '10.0',
         'appium:newCommandTimeout': 240,
         'appium:adbExecTimeout': 60000,
+
+        'appium:uiautomator2ServerLaunchTimeout': 90000,
+        'appium:uiautomator2ServerInstallTimeout': 90000,
+        'appium:androidInstallTimeout': 90000,
+        
         'appium:appPackage': 'com.google.android.deskclock',
         'appium:appActivity': 'com.android.deskclock.DeskClock',
         'appium:autoGrantPermissions': true,
