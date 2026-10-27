@@ -36,7 +36,7 @@ export const config: WebdriverIO.Config = {
         platformName: 'Android',
         'appium:automationName': 'UiAutomator2',
         'appium:deviceName': process.env.ANDROID_DEVICE_NAME ?? 'Android Emulator',
-        'appium:platformVersion': '13.0',
+        'appium:platformVersion': '10.0',
         'appium:newCommandTimeout': 240,
         'appium:adbExecTimeout': 60000,
         'appium:appPackage': 'com.google.android.deskclock',

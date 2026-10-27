@@ -25,23 +25,36 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests on Android 13 emulator
+      - name: Run tests on Android emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 33
+          api-level: 29
           target: google_apis
           arch: x86_64
-          profile: pixel_2
-          disable-animations: true
+          profile: pixel_4
           script: |
+            adb kill-server
+            adb start-server
+            
+            echo "Waiting for device to be online..."
             adb wait-for-device
             
-            echo "Waiting for emulator to fully boot..."
-            while [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" != "1" ]; do
-              sleep 2
+            echo "Waiting for sys.boot_completed..."
+            counter=0
+            until [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = "1" ]; do
+              counter=$((counter+1))
+              if [ $counter -ge 30 ]; then
+                echo "Timeout waiting for emulator to boot!"
+                exit 1
+              fi
+              sleep 5
             done
-            sleep 5
+            
+            echo "Emulator booted successfully!"
+            
             adb shell input keyevent 82
+            adb shell input keyevent 4
+            
             npm run test:local
 
       - name: Upload Allure results
