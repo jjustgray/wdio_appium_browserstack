@@ -1,1 +1,1 @@
-{"total":1,"items":[{"uid":"ec879d000ab0f0f58fd7592c75d74573","name":"Android Clock Native App Tests","statistic":{"failed":0,"broken":0,"skipped":0,"passed":0,"unknown":1,"total":1}}]}
+{"total":1,"items":[{"uid":"ec879d000ab0f0f58fd7592c75d74573","name":"Android Clock Native App Tests","statistic":{"failed":2,"broken":2,"skipped":0,"passed":1,"unknown":0,"total":5}}]}

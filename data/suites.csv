@@ -1,2 +1,6 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","","TC-01: Should successfully switch to the Timer tab","Android Clock Native App Tests","2026-10-28","unknown","","","","",""
+"","6783","TC-03: Should delete an existing alarm","Android Clock Native App Tests","2026-10-28","failed","2026-10-28","","","",""
+"","6167","TC-04: Should run and pause the Stopwatch","Android Clock Native App Tests","2026-10-28","broken","2026-10-28","","","",""
+"","5387","TC-05: Should fix lap in Stopwatch","Android Clock Native App Tests","2026-10-28","broken","2026-10-28","","","",""
+"","6900","TC-02: Should create a new alarm","Android Clock Native App Tests","2026-10-28","passed","2026-10-28","","","",""
+"","2972","TC-01: Should successfully switch to the Timer tab","Android Clock Native App Tests","2026-10-28","failed","2026-10-28","","","",""
