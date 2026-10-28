@@ -1,1 +1,1 @@
-{"total":0,"items":[]}
+{"total":3,"items":[{"uid":"ec74711bd3d15b64521bd833b82b4107","name":"Alarm Management","statistic":{"failed":0,"broken":1,"skipped":0,"passed":1,"unknown":0,"total":2}},{"uid":"04a7aba5ecec4708607f427bd50d1b78","name":"Stopwatch","statistic":{"failed":0,"broken":0,"skipped":0,"passed":2,"unknown":0,"total":2}},{"uid":"761cb2c12c4d1985e3abf32d529e0759","name":"Clock Navigation","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}
