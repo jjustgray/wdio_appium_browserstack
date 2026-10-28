@@ -15,11 +15,11 @@ class ClockPage {
   get btnPMtime() { return $('id=com.google.android.deskclock:id/material_clock_period_pm_button'); }
   get deleteAlarmBtn() { return $('id=com.google.android.deskclock:id/delete'); }
 
-  get btnStartStopwatch() { return $('id=com.google.android.deskclock:id/stopwatch_start_pause'); }
+  get btnStartStopwatch() { return $('~Start'); }
   get stopwatchTime() { return $('id=com.google.android.deskclock:id/stopwatch_circle'); }
   get btnResetStopwatch() { return $('id=com.google.android.deskclock:id/stopwatch_reset'); }
-  get btnPauseStopwatch() { return $('id=com.google.android.deskclock:id/stopwatch_start_pause'); }
-  get btnLapStopwatch() { return $('id=com.google.android.deskclock:id/stopwatch_add_lap'); }
+  get btnPauseStopwatch() { return $('~Pause'); }
+  get btnLapStopwatch() { return $('~Lap'); }
   get stopwatchLapList() { return $('id=com.google.android.deskclock:id/laps_list'); }
   get lapNumber() { return $('android=new UiSelector().resourceId("com.google.android.deskclock:id/lap_number")'); }
   get lapTime() { return $('android=new UiSelector().resourceId("com.google.android.deskclock:id/lap_time")'); }
@@ -88,6 +88,7 @@ class ClockPage {
   async openStopwatchTab(): Promise<void> {
     await this.tabStopwatch.waitForDisplayed({ timeout: 10000 });
     await this.tabStopwatch.click();
+    await this.stopwatchTime.waitForDisplayed({ timeout: 10000 });
   }
 
 

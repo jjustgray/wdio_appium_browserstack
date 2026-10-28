@@ -8,7 +8,7 @@ describe('Android Clock Native App Tests', () => {
     allureReporter.addStory('Timer Tab');
 
     await ClockPage.openTimerTab();
-    expect(await ClockPage.btnStartTimer.isDisplayed()).toBe(true);
+    await expect(ClockPage.btnDigit5).toBeDisplayed();
   });
 
   it('TC-02: Should create a new alarm', async () => {
@@ -34,16 +34,20 @@ describe('Android Clock Native App Tests', () => {
     await ClockPage.openAlarmTab();
     await ClockPage.createNewAlarm(alarmTime.hours, alarmTime.minutes, alarmTime.period);
     
-    const alarmLabelElement = await ClockPage.findAlarmLabelByTime(alarmTime.hours, alarmTime.minutes, alarmTime.period);
     const alarmCard = await ClockPage.findAlarmCardByTime(alarmTime.hours, alarmTime.minutes);
     const expandButton = await alarmCard.$('//*[@content-desc="Expand alarm"]');
     await expandButton.click();
     await ClockPage.scrollToOption('Delete');
     await ClockPage.deleteAlarmBtn.click();
 
-    const isPresent = await alarmLabelElement.isDisplayed();
-
-    expect(isPresent).toBe(false);
+    await browser.waitUntil(
+      async () => !(await (await ClockPage.findAlarmLabelByTime(alarmTime.hours, alarmTime.minutes, alarmTime.period)).isExisting()),
+      {
+        timeout: 10000,
+        interval: 250,
+        timeoutMsg: `Alarm ${alarmTime.hours}:${alarmTime.minutes} was not deleted`
+      }
+    );
   });
 
   it('TC-04: Should run and pause the Stopwatch', async () => {
@@ -57,6 +61,7 @@ describe('Android Clock Native App Tests', () => {
 
     const timeText = await ClockPage.stopwatchTime.getText();
     expect(timeText).not.toBe('00 00');
+    await ClockPage.btnResetStopwatch.click();
   });
 
   it('TC-05: Should fix lap in Stopwatch', async () => {
