@@ -73,7 +73,7 @@ describe('Android Clock Native App Tests', () => {
     await ClockPage.btnLapStopwatch.click();
     await ClockPage.btnPauseStopwatch.click();
 
-    expect(ClockPage.lapNumber).toBeDisplayed();
+    await expect(ClockPage.lapNumber).toBeDisplayed();
   });
 
 });
