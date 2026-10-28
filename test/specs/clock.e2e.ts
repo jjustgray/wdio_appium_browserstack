@@ -41,7 +41,7 @@ describe('Android Clock Native App Tests', () => {
     await ClockPage.deleteAlarmBtn.click();
 
     await browser.waitUntil(
-      async () => !(await (await ClockPage.findAlarmLabelByTime(alarmTime.hours, alarmTime.minutes, alarmTime.period)).isExisting()),
+      async () => !(await (await ClockPage.findAlarmCardByTime(alarmTime.hours, alarmTime.minutes)).isExisting()),
       {
         timeout: 10000,
         interval: 250,

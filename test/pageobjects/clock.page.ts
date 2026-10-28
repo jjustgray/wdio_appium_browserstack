@@ -63,8 +63,6 @@ class ClockPage {
   }
 
   async findAlarmCardByTime(hours: number, minutes: number) {
-      const timePattern = `${hours}:${minutes})`;
-
       const xpath = `
           //android.support.v7.widget.RecyclerView[@resource-id="com.google.android.deskclock:id/alarm_recycler_view"]
           /androidx.cardview.widget.CardView

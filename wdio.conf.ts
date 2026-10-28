@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import path from 'node:path';
+import allureReporter from '@wdio/allure-reporter';
 
 const appPath = process.env.APP_PATH;
 
@@ -21,6 +22,16 @@ export const config: WebdriverIO.Config = {
     ],
     mochaOpts: {
         timeout: 600_000
+    },
+    afterTest: async function (_test, _context, { passed }) {
+        if (!passed) {
+            const screenshot = await browser.takeScreenshot();
+            await allureReporter.addAttachment(
+                'Failure screenshot',
+                Buffer.from(screenshot, 'base64'),
+                'image/png'
+            );
+        }
     },
     services: [[
         'appium',
