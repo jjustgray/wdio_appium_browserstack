@@ -1,12 +1,12 @@
 import { $ } from '@wdio/globals';
 
 class ClockPage {
-  get tabAlarm() { return $('~Alarm'); }
-  get tabClock() { return $('~Clock'); }
-  get tabTimer() { return $('~Timer'); }
-  get tabStopwatch() { return $('~Stopwatch'); }
+  get tabAlarm() { return $('id=com.google.android.deskclock:id/tab_menu_alarm'); }
+  get tabClock() { return $('id=com.google.android.deskclock:id/tab_menu_clock'); }
+  get tabTimer() { return $('id=com.google.android.deskclock:id/tab_menu_timer'); }
+  get tabStopwatch() { return $('id=com.google.android.deskclock:id/tab_menu_stopwatch'); }
 
-  get btnAddAlarm() { return $('~Add alarm'); }
+  get btnAddAlarm() { return $('id=com.google.android.deskclock:id/fab'); }
   get alarmList() { return $('id=com.google.android.deskclock:id/alarm_recycler_view'); }
   get confirmNewAlarm() { return $('id=com.google.android.deskclock:id/material_timepicker_ok_button'); }
   get collapseAlarmView() { return $('~Collapse alarm'); }
@@ -15,26 +15,28 @@ class ClockPage {
   get btnPMtime() { return $('id=com.google.android.deskclock:id/material_clock_period_pm_button'); }
   get deleteAlarmBtn() { return $('id=com.google.android.deskclock:id/delete'); }
 
-  get btnStartStopwatch() { return $('~Start'); }
+  get btnStartStopwatch() { return $('id=com.google.android.deskclock:id/stopwatch_start_pause'); }
   get stopwatchTime() { return $('id=com.google.android.deskclock:id/stopwatch_circle'); }
-  get btnResetStopwatch() { return $('~Reset'); }
-  get btnPauseStopwatch() { return $('~Pause'); }
-  get btnLapStopwatch() { return $('~Lap'); }
+  get btnResetStopwatch() { return $('id=com.google.android.deskclock:id/stopwatch_reset'); }
+  get btnPauseStopwatch() { return $('id=com.google.android.deskclock:id/stopwatch_start_pause'); }
+  get btnLapStopwatch() { return $('id=com.google.android.deskclock:id/stopwatch_add_lap'); }
   get stopwatchLapList() { return $('id=com.google.android.deskclock:id/laps_list'); }
   get lapNumber() { return $('android=new UiSelector().resourceId("com.google.android.deskclock:id/lap_number")'); }
   get lapTime() { return $('android=new UiSelector().resourceId("com.google.android.deskclock:id/lap_time")'); }
   get lapTotal() { return $('android=new UiSelector().resourceId("com.google.android.deskclock:id/lap_total")'); }
 
   get btnDigit5() { return $('id=com.google.android.deskclock:id/timer_setup_digit_5'); }
-  get btnStartTimer() { return $('~Start'); }
+  get btnStartTimer() { return $('id=com.google.android.deskclock:id/fab'); }
   get timerText() { return $('id=com.google.android.deskclock:id/timer_label'); }
 
   async scrollToOption(optionText: string): Promise<void> {
     const selector = `android=new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("${optionText}"))`;
     const element = $(selector);
+    await element.waitForDisplayed({ timeout: 10000 });
   }
   
   async openAlarmTab(): Promise<void> {
+    await this.tabAlarm.waitForDisplayed({ timeout: 10000 });
     await this.tabAlarm.click();
   }
 

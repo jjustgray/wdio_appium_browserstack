@@ -53,7 +53,31 @@ jobs:
             
             adb shell input keyevent 82 || true
 
+            set +e
             npm run test:local
+            test_status=$?
+
+            if [ "$test_status" -ne 0 ]; then
+              mkdir -p ci-diagnostics
+              adb shell dumpsys window > ci-diagnostics/window.txt 2>&1 || true
+              adb shell dumpsys activity activities > ci-diagnostics/activities.txt 2>&1 || true
+              adb shell pm path com.google.android.deskclock > ci-diagnostics/installed-app.txt 2>&1 || true
+              adb exec-out screencap -p > ci-diagnostics/screen.png || true
+              adb shell uiautomator dump /sdcard/window.xml > /dev/null 2>&1 || true
+              adb pull /sdcard/window.xml ci-diagnostics/window.xml > /dev/null 2>&1 || true
+              adb logcat -d -t 3000 > ci-diagnostics/logcat.txt 2>&1 || true
+            fi
+
+            exit "$test_status"
+
+      - name: Upload emulator diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v5
+        with:
+          name: emulator-diagnostics
+          path: ci-diagnostics/
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Upload Allure results
         if: always()

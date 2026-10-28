@@ -4,7 +4,7 @@ import ClockPage from '../pageobjects/clock.page.js';
 
 describe('Android Clock Native App Tests', () => {
   beforeEach(async () => {
-    await ClockPage.tabClock.click();
+    await ClockPage.openClockTab();
   });
 
   it('TC-01: Should successfully switch to the Timer tab', async () => {
