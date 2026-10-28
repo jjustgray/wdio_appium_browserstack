@@ -1,1 +1,1 @@
-[{"uid":"ccd260207223df8c","name":"TC-01: Should successfully switch to the Timer tab","time":{"start":1793186216488,"stop":1793186240715,"duration":24227},"status":"failed","severity":"normal"},{"uid":"65e765e5e77021e4","name":"TC-03: Should delete an existing alarm","time":{"start":1793186255196},"status":"unknown","severity":"normal"},{"uid":"ee2581fd959d1ec4","name":"TC-02: Should create a new alarm","time":{"start":1793186240715,"stop":1793186255188,"duration":14473},"status":"broken","severity":"normal"}]
+[]
