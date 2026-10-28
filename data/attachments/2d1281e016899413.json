@@ -1,4 +1,0 @@
-{
-  "using": "xpath",
-  "value": "//android.support.v7.widget.RecyclerView[@resource-id=\"com.google.android.deskclock:id/alarm_recycler_view\"]\n          /androidx.cardview.widget.CardView\n          [./android.view.ViewGroup[@resource-id=\"com.google.android.deskclock:id/alarm_card_layout\" \n          and .//android.widget.TextView[contains(@text, \"9:30\")]]]"
-}
