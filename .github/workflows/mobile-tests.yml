@@ -66,6 +66,10 @@ jobs:
               adb shell uiautomator dump /sdcard/window.xml > /dev/null 2>&1 || true
               adb pull /sdcard/window.xml ci-diagnostics/window.xml > /dev/null 2>&1 || true
               adb logcat -d -t 3000 > ci-diagnostics/logcat.txt 2>&1 || true
+              echo "Foreground activity:"
+              adb shell dumpsys activity activities | grep -E 'mResumedActivity|topResumedActivity' || true
+              echo "Current UI hierarchy:"
+              cat ci-diagnostics/window.xml || true
             fi
 
             exit "$test_status"

@@ -49,7 +49,10 @@ export const config: WebdriverIO.Config = {
 
         'appium:appPackage': 'com.google.android.deskclock',
         'appium:appActivity': 'com.android.deskclock.DeskClock',
+        'appium:appWaitActivity': '*',
+        'appium:appWaitDuration': 30000,
+        'appium:forceAppLaunch': true,
         'appium:autoGrantPermissions': true,
-        'appium:noReset': true
+        'appium:noReset': false
     }]
 };

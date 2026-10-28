@@ -3,10 +3,6 @@ import allureReporter from '@wdio/allure-reporter';
 import ClockPage from '../pageobjects/clock.page.js';
 
 describe('Android Clock Native App Tests', () => {
-  beforeEach(async () => {
-    await ClockPage.openClockTab();
-  });
-
   it('TC-01: Should successfully switch to the Timer tab', async () => {
     allureReporter.addFeature('Clock Navigation');
     allureReporter.addStory('Timer Tab');
