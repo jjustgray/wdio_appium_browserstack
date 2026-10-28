@@ -61,7 +61,6 @@ describe('Android Clock Native App Tests', () => {
 
     const timeText = await ClockPage.stopwatchTime.getText();
     expect(timeText).not.toBe('00 00');
-    await ClockPage.btnResetStopwatch.click();
   });
 
   it('TC-05: Should fix lap in Stopwatch', async () => {
