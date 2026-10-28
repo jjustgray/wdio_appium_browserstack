@@ -30,7 +30,7 @@ jobs:
       - name: Run tests on Android emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: 33
           target: google_apis
           arch: x86_64
           profile: pixel_4
@@ -116,4 +116,4 @@ jobs:
           REPORT_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
           
           echo "### 📊 Test Results & Reports" >> $GITHUB_STEP_SUMMARY
-          echo "- [Открыть последний Allure Report]($REPORT_URL)" >> $GITHUB_STEP_SUMMARY
+          echo "- [Open last Allure Report]($REPORT_URL)" >> $GITHUB_STEP_SUMMARY
